@@ -9,7 +9,6 @@ import io.ktor.server.routing.*
 import org.ecorous.Utils
 import org.ecorous.Utils.ensureAuthenticated
 import org.ecorous.types.CreatePost
-import org.ecorous.types.Post
 import kotlinx.html.*
 import org.ecorous.authToken
 import java.util.*

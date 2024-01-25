@@ -9,6 +9,7 @@ plugins {
     kotlin("jvm") version "1.9.22"
     id("io.ktor.plugin") version "2.3.7"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
+    id("com.github.johnrengelman.shadow")
 }
 
 group = "org.ecorous"
@@ -19,6 +20,14 @@ application {
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Main-Class" to "org.ecorous.ApplicationKt"
+        )
+    }
 }
 
 repositories {

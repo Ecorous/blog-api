@@ -10,12 +10,15 @@ import java.util.UUID
 
 object DB {
     var db: Database? = null
+    var dbAuth = System.getenv("BLOG_DB_PASS") ?: "example"
+    var dbPort = System.getenv("BLOG_DB_PORT") ?: "5432"
+    var dbDb = System.getenv("BLOG_DB_DATABASE") ?: "ecorousblog"
     fun setupDatabase() {
         db = Database.connect(
-            url = "jdbc:postgresql://localhost:5432/ecorousblog",
+            url = "jdbc:postgresql://localhost:${dbPort}/${dbDb}",
             user = "postgres",
             driver = "org.postgresql.Driver",
-            password = "example"
+            password = dbAuth
         )
         transaction(db) {
             SchemaUtils.create(Tables.Posts)
