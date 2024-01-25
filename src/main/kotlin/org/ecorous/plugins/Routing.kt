@@ -117,7 +117,7 @@ fun Application.configureRouting() {
             posts.forEach {
                 sb.appendLine("<item>")
                 sb.appendLine("\t<title>${it.title}</title>")
-                sb.appendLine("\t<link>https://ecorous.org/blog/posts/${it.id}</link>")
+                sb.appendLine("\t<link>https://ecorous.org/blog/post/${it.id}</link>")
                 sb.appendLine("\t<description>${it.content}</description>")
                 sb.appendLine("\t<pubDate>${it.createdAt}</pubDate>")
                 sb.appendLine("</item>")
