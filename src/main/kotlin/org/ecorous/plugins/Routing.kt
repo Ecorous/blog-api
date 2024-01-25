@@ -102,5 +102,34 @@ fun Application.configureRouting() {
                 }
             }
         }
+        get("/feed.xml") {
+            // create an RSS feed
+            val posts = DB.getPosts().sortedBy { it.createdAt }
+            // use stringbuilder
+            val sb = StringBuilder()
+            sb.appendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+            sb.appendLine("<rss version=\"2.0\">")
+            sb.appendLine("<channel>")
+            sb.appendLine("<title>Dawn's Blog</title>")
+            sb.appendLine("<link>https://ecorous.org/blog</link>")
+            sb.appendLine("<description>Dawn's Blog for various things and stuffs</description>")
+            sb.appendLine("<language>en-gb</language>")
+            posts.forEach {
+                sb.appendLine("<item>")
+                sb.appendLine("\t<title>${it.title}</title>")
+                sb.appendLine("\t<link>https://ecorous.org/blog/posts/${it.id}</link>")
+                sb.appendLine("\t<description>${it.content}</description>")
+                sb.appendLine("\t<pubDate>${it.createdAt}</pubDate>")
+                sb.appendLine("</item>")
+            }
+            sb.appendLine("</channel>")
+            sb.appendLine("</rss>")
+            headers {
+                append(HttpHeaders.ContentType, ContentType.Application.Rss)
+            }
+            call.respondText(sb.toString())
+
+
+        }
     }
 }
